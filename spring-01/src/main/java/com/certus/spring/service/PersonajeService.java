@@ -12,7 +12,7 @@ import com.certus.spring.models.Response;
 @Component("servicio1")
 public class PersonajeService implements IPersonajeService {
 
-	public Response<Personaje> crearPersonaje() {
+	public Response<Personaje> crearPersonaje(Personaje personajeRecibo) {
 		
 		Response<Personaje> response = new Response<>();	
 		
@@ -49,6 +49,9 @@ public class PersonajeService implements IPersonajeService {
 		listita.add(personaje1);
 		listita.add(personaje2);
 		listita.add(personaje3);
+		
+		//AGREGAR VALIDACION ALUMNOS j98
+		listita.add(personajeRecibo);
 		
 		//Validación de lista de personajes
 		if(listita.size() > 0) {

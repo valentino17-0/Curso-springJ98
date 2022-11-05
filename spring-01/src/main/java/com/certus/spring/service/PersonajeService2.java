@@ -11,7 +11,7 @@ import com.certus.spring.models.Response;
 @Component("servicio2")
 public class PersonajeService2 implements IPersonajeService {
 
-	public Response<Personaje> crearPersonaje() {
+	public Response<Personaje> crearPersonaje(Personaje p) {
 		
 		Response<Personaje> response = new Response<>();	
 		

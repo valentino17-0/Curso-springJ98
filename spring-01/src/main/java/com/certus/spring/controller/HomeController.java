@@ -1,8 +1,5 @@
 package com.certus.spring.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.certus.spring.models.Personaje;
+import com.certus.spring.models.Response;
 import com.certus.spring.service.IPersonajeService;
 
 @Controller
@@ -39,21 +37,18 @@ public class HomeController {
 		model.addAttribute("TituloPagina", titlePage);
 		model.addAttribute("titulo", "Sección J98 - Demo listado");
 		
-		//List<Personaje>  listasUnidas =  new ArrayList<>();
+		Personaje personaje =  new Personaje();
 		
-		if (InterfacePersonaje1.crearPersonaje().getEstado()) {			
-			model.addAttribute("listita", InterfacePersonaje1.crearPersonaje().getData());
+		if (InterfacePersonaje1.crearPersonaje(personaje).getEstado()) {			
+			model.addAttribute("listita", InterfacePersonaje1.crearPersonaje(personaje).getData());
 		}
 		
 		
-		/*listasUnidas.addAll(InterfacePersonaje1.crearPersonaje().getData());
-		listasUnidas.addAll(InterfacePersonaje2.crearPersonaje().getData());
+
 		
-		model.addAttribute("listita", listasUnidas);*/
+		model.addAttribute("Estado", InterfacePersonaje1.crearPersonaje(personaje).getMensaje());
 		
-		model.addAttribute("Estado", InterfacePersonaje1.crearPersonaje().getMensaje());
 		
-		Personaje personaje =  new Personaje();
 		
 		String respuesta = InterfacePersonaje2.demoMetodo(personaje);
 		
@@ -78,29 +73,19 @@ public class HomeController {
 	public String creaPersonaje(@Valid Personaje Luffy, BindingResult result, Model model) {
 		
 		if(result.hasErrors()) {
-			
-			Map<String, String> erroresPersonaje = new HashMap<>();
-			
-			result.getFieldErrors().forEach( PersonajeErrores ->{				
-				erroresPersonaje.put(PersonajeErrores.getField(), PersonajeErrores.getDefaultMessage());
-			});
-			
-			
-			model.addAttribute("TituloPagina", titlePage);
-			model.addAttribute("titulo", "Sección J98 - Personaje Creado");	
-			model.addAttribute("error", erroresPersonaje);
-			model.addAttribute("personaje", Luffy);
-			
 			return "Formulario";
 		}
 		
+		//Logica de creacion del personaje
 		
+		Response<Personaje> rspta = InterfacePersonaje1.crearPersonaje(Luffy);
 		
+		model.addAttribute("listita", rspta.getData());
 		model.addAttribute("TituloPagina", titlePage);
 		model.addAttribute("titulo", "Sección J98 - Personaje Creado");		
-		model.addAttribute("personaje", Luffy);
+
 		
-		return "Formulario";		
+		return "Home";		
 	}
 	
 
