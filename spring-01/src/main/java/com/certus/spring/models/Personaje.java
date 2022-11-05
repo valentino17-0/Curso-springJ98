@@ -1,13 +1,26 @@
 package com.certus.spring.models;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class Personaje {
-    private String nombres;
-    private String alias;
-    private String TipoFruta;
-    private String Habilidad;
-    private String tripulacion;
-    private String Recompensa;
-    
+	
+	@NotEmpty(message = "Completar el nombre del personaje")
+	private String nombres;
+	
+	@Size(min = 5, message = "El alias debe contener al menos 5 caracteres")
+	private String alias;
+	
+	private String tipoFruta;
+	private String habilidad;
+	private String tripulacion;
+	
+	@NotEmpty(message = "Indicar la recompensa del personaje")
+	private String reconpensa;
+	
+	
+	
+	
 	public String getNombres() {
 		return nombres;
 	}
@@ -21,16 +34,16 @@ public class Personaje {
 		this.alias = alias;
 	}
 	public String getTipoFruta() {
-		return TipoFruta;
+		return tipoFruta;
 	}
 	public void setTipoFruta(String tipoFruta) {
-		TipoFruta = tipoFruta;
+		this.tipoFruta = tipoFruta;
 	}
 	public String getHabilidad() {
-		return Habilidad;
+		return habilidad;
 	}
 	public void setHabilidad(String habilidad) {
-		Habilidad = habilidad;
+		this.habilidad = habilidad;
 	}
 	public String getTripulacion() {
 		return tripulacion;
@@ -38,12 +51,13 @@ public class Personaje {
 	public void setTripulacion(String tripulacion) {
 		this.tripulacion = tripulacion;
 	}
-	public String getRecompensa() {
-		return Recompensa;
+	public String getReconpensa() {
+		return reconpensa;
 	}
-	public void setRecompensa(String recompensa) {
-		Recompensa = recompensa;
+	public void setReconpensa(String reconpensa) {
+		this.reconpensa = reconpensa;
 	}
-    
-    
+	
+	
+
 }

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title th:text="${TituloPagina}"></title>
+<link rel="stylesheet" href="/boostrap/bootstrap.min.css">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" th:href="@{/app/home}">One Piece</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" th:href="@{/app/home}">Inicio
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/app/home}">Lista Personaje</a></li>
+				
+				<li class="nav-item"><a class="nav-link" th:href="@{/app/crear}" >Crear Personaje</a>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search"
+					placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+
+	<div class="container mt-2">
+		<div class="jumbotron">
+			<h1 class="display-4" th:text="${titulo}"></h1>
+			<p class="lead" th:text="${Estado}"></p>
+			<hr class="my-4">
+
+			<div>
+				<form th:action="@{/app/form}" method="post">
+				
+					<div class="form-group">
+						<label for="idNombres">Nombres</label> 
+						<input type="text" name="nombres" class="form-control" id="idNombres" th:value="${personaje.nombres}"> 
+						<div class="alert alert-danger" role="alert" th:if="${error != null && error.containsKey('nombres')}"  th:text="${error.nombres}" ></div>
+					</div>
+					
+					<div class="form-group">
+						<label for="idAlias">Alias</label> 
+						<input type="text" name="alias"  class="form-control" id="idAlias" th:value="${personaje.alias}"> 
+						<div class="alert alert-danger" role="alert"  th:if="${error != null && error.containsKey('alias')}"  th:text="${error.alias}" ></div>
+					</div>
+					
+					<div class="form-group">
+						<label for="idTipoFruta">Tipo de Fruta</label> 
+						<input type="text" name="tipoFruta" class="form-control" id="idTipoFruta" th:value="${personaje.tipoFruta}"> 
+						<div class="alert alert-danger" role="alert"  th:if="${error != null && error.containsKey('tipoFruta')}"  th:text="${error.tipoFruta}" ></div>
+					</div>
+					
+					<div class="form-group">
+						<label for="idHabilidad">Habilidad</label> 
+						<input type="text" name="habilidad" class="form-control" id="idHabilidad" th:value="${personaje.habilidad}"> 
+						<div class="alert alert-danger" role="alert"  th:if="${error != null && error.containsKey('habilidad')}"  th:text="${error.habilidad}" ></div>
+					</div>
+					
+					<div class="form-group">
+						<label for="idTripulacion">Tripulación</label> 
+						<input type="text" name="tripulacion" class="form-control" id="idTripulacion" th:value="${personaje.tripulacion}"> 
+						<div class="alert alert-danger" role="alert"  th:if="${error != null && error.containsKey('tripulacion')}"  th:text="${error.tripulacion}" ></div>
+					</div>
+					
+					<div class="form-group">
+						<label for="idRecompensa">Recompensa</label> 
+						<input type="text" name="reconpensa" class="form-control" id="idRecompensa" th:value="${personaje.reconpensa}"> 
+						<div class="alert alert-danger" role="alert"  th:if="${error != null && error.containsKey('reconpensa')}"  th:text="${error.reconpensa}" ></div>
+					</div>
+					
+					
+					<button type="submit" class="btn btn-success">Crear Personaje</button>
+				</form>
+			</div>
+			<hr>
+			<div>
+				<span th:text="${personaje.nombres}"></span><br/>
+				<span th:text="${personaje.alias}"></span><br/>
+				<span th:text="${personaje.tipoFruta}"></span><br/>
+				<span th:text="${personaje.habilidad}"></span><br/>
+				<span th:text="${personaje.tripulacion}"></span><br/>
+				<span th:text="${personaje.reconpensa}"></span><br/>
+			</div>
+			
+
+		</div>
+	</div>
+
+
+	<script src="/boostrap/jquery.slim.min.js"></script>
+	<script src="/boostrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>
