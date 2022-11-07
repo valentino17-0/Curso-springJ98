@@ -78,21 +78,16 @@
 						<input type="text" name="reconpensa" class="form-control" id="idRecompensa" th:field="*{reconpensa}"> 
 						<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('reconpensa')}" th:errors="*{reconpensa}" ></div>
 					</div>
+						<div class="form-group">
+						<label for="idUriImagen">Enlace Imagen</label> 
+						<input type="text" name="uriImagen" class="form-control" id="idUriImagen" th:field="*{uriImagen}"> 
+						<div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('uriImagen')}" th:errors="*{uriImagen}" ></div>
+					</div>
 					
 					
 					<button type="submit" class="btn btn-success">Crear Personaje</button>
 				</form>
 			</div>
-			<hr>
-			<div>
-				<span th:text="${personaje.nombres}"></span><br/>
-				<span th:text="${personaje.alias}"></span><br/>
-				<span th:text="${personaje.tipoFruta}"></span><br/>
-				<span th:text="${personaje.habilidad}"></span><br/>
-				<span th:text="${personaje.tripulacion}"></span><br/>
-				<span th:text="${personaje.reconpensa}"></span><br/>
-			</div>
-			
 
 		</div>
 	</div>

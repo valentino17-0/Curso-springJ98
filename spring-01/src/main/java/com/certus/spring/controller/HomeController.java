@@ -77,17 +77,16 @@ public class HomeController {
 		if(result.hasErrors()) {
 			return "Formulario";
 		}
-		
-		//Logica de creacion del personaje
-		
+				
 		Response<Personaje> rspta = InterfacePersonaje1.crearPersonaje(Luffy);
 		
-		model.addAttribute("listita", rspta.getData());
-		model.addAttribute("TituloPagina", titlePage);
-		model.addAttribute("titulo", "Sección J98 - Personaje Creado");		
-
+		if (rspta.getEstado()) {
+			return "redirect:lista";
+		}else {
+		model.addAttribute("mensaje", rspta.getMensaje());	
+		return "redirect:Error";
 		
-		return "Home";		
+		}
 	}
 	
 
