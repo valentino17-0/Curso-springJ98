@@ -22,6 +22,9 @@ public class HomeController {
 
 	@Value("${title.generic}")
 	private String titlePage;
+	
+	@Value("${mensaje}")
+	private String mensaje;	
 		
 	@Autowired
 	@Qualifier("servicio1")
@@ -35,28 +38,27 @@ public class HomeController {
 	@GetMapping({ "/home", "/inicio", "/", "/Home", "/Inicio" })
 	public String Home(Model model) {
 		model.addAttribute("TituloPagina", titlePage);
-		model.addAttribute("titulo", "Sección J98 - Demo listado");
-		
-		Personaje personaje =  new Personaje();
-		
-		if (InterfacePersonaje1.crearPersonaje(personaje).getEstado()) {			
-			model.addAttribute("listita", InterfacePersonaje1.crearPersonaje(personaje).getData());
-		}
-		
-		
-
-		
-		model.addAttribute("Estado", InterfacePersonaje1.crearPersonaje(personaje).getMensaje());
-		
-		
-		
-		String respuesta = InterfacePersonaje2.demoMetodo(personaje);
-		
-		model.addAttribute("respuesta", respuesta);
+		model.addAttribute("titulo", "Sección J98");	
+		model.addAttribute("Mensaje", mensaje);
 		
 		return "Home";
 
 	}
+	
+	@GetMapping("/listar")
+	public String ListarPersonajes(Model model) {
+		
+		model.addAttribute("TituloPagina", titlePage);
+		model.addAttribute("titulo", mensaje);	
+		
+		Response<Personaje> rspta = InterfacePersonaje1.listarPersonaje();
+		
+		model.addAttribute("listita", rspta.getData());
+		
+		return "lista";
+		
+	}
+		
 	
 	@GetMapping("/crear")
 	public String Formulario(Model model) {

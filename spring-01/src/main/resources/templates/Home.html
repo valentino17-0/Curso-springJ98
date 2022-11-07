@@ -21,7 +21,7 @@
 				<li class="nav-item active"><a class="nav-link" href="#">Inicio
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" th:href="@{/app/home}">Lista Personaje</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/app/listar}">Lista Personaje</a></li>
 				
 				<li class="nav-item"><a class="nav-link" th:href="@{/app/crear}" >Crear Personaje</a>
 				</li>
@@ -34,18 +34,16 @@
 		</div>
 	</nav>
 
-	<div class="container mt-2">
+<div class="container mt-2">
 		<div class="jumbotron">
 			<h1 class="display-4" th:text="${titulo}"></h1>
 			<br>
-			<p class="lead" th:text="${Estado}"></p>
+			<p class="lead" th:text="${Mensaje}"></p>
 
 			<hr class="my-4">
 			<div class="jumbotron">
-				<ul class="list-group" th:each="personaje : ${listita}">
-					<li class="list-group-item" th:text="${personaje.nombres}"></li>
-					<li class="list-group-item" th:text="${personaje.alias}"></li>
-					<li class="list-group-item" th:text="${personaje.tipoFruta}"></li>
+				<img style="border-radius:20px;
+				width: 100%; box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05 ) 0px 5px 10px" alt="Spring Framework" th:src="@{/img/springLogo.png}">
 				</ul>
 			</div>
 

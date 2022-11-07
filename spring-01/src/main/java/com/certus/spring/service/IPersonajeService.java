@@ -6,8 +6,9 @@ import com.certus.spring.models.Response;
 public interface IPersonajeService {
 	
 	public Response<Personaje> crearPersonaje(Personaje p);
+	
 	public String editarPersonaje();
 	
-	public String demoMetodo(Personaje p);
+	public Response<Personaje> listarPersonaje();
 
 }

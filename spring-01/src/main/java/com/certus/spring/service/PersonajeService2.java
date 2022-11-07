@@ -45,6 +45,10 @@ public class PersonajeService2 implements IPersonajeService {
 		personaje3.setReconpensa("123456789 3 v2");
 
 		// Agregando un personaje a la lista
+
+		
+		
+		
 		listita.add(personaje1);
 		listita.add(personaje2);
 		listita.add(personaje3);
@@ -73,18 +77,12 @@ public class PersonajeService2 implements IPersonajeService {
 	}
 
 
-
-
 	@Override
-	public String demoMetodo(Personaje p) {
-		
-		String respuesta = "Procesando Servicio 2";
-		
-		if(p != null) {
-			respuesta = "Todo OK Servicio 2";
-		}
-		
-		return respuesta;
+	public Response<Personaje> listarPersonaje() {
+		return null;
 	}
+    
+
+
 
 }
