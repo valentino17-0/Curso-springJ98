@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,15 +49,22 @@ public class HomeController {
 	@GetMapping("/listar")
 	public String ListarPersonajes(Model model) {
 		
-		model.addAttribute("TituloPagina", titlePage);
-		model.addAttribute("titulo", mensaje);	
 		
+		model.addAttribute("TituloPagina", titlePage);
+		model.addAttribute("titulo", "Seccion J98");		
 		Response<Personaje> rspta = InterfacePersonaje1.listarPersonaje();
 		
-		model.addAttribute("listita", rspta.getData());
-		
-		return "lista";
-		
+		if (rspta.getEstado()) {
+			model.addAttribute("Mensaje", rspta.getMensaje());
+			model.addAttribute("listita", rspta.getListData());
+			
+			return "lista";		
+		} else {
+			model.addAttribute("mensaje", rspta.getMensaje());
+			model.addAttribute("mensajeError", rspta.getMensajeError());
+			return "errores";
+		}
+				
 	}
 		
 	
@@ -71,6 +79,19 @@ public class HomeController {
 		return "Formulario";		
 	}
 	
+	@GetMapping("/Editar")
+	public String EditarPersonaje(@PathVariable int idPersonaje,  Model model) {
+	
+		
+		
+		return "Formulario";	
+	}
+	
+	
+	
+	
+	
+	
 	@PostMapping("/form")
 	public String creaPersonaje(@Valid Personaje Luffy, BindingResult result, Model model) {
 		
@@ -81,10 +102,10 @@ public class HomeController {
 		Response<Personaje> rspta = InterfacePersonaje1.crearPersonaje(Luffy);
 		
 		if (rspta.getEstado()) {
-			return "redirect:lista";
+			return "redirect:/app/listar";
 		}else {
 		model.addAttribute("mensaje", rspta.getMensaje());	
-		return "redirect:Error";
+		return "errores";
 		
 		}
 	}
