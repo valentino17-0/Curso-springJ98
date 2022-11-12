@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.certus.spring.models.Personaje;
 import com.certus.spring.models.Response;
@@ -19,6 +21,8 @@ import com.certus.spring.service.IPersonajeService;
 
 @Controller
 @RequestMapping("/app")
+@SessionAttributes("personaje")
+
 public class HomeController {
 
 	@Value("${title.generic}")
@@ -110,7 +114,10 @@ public class HomeController {
 	
 	
 	@PostMapping("/form")
-	public String creaPersonaje(@Valid Personaje Luffy, BindingResult result, Model model) {
+	public String creaPersonaje(@Valid Personaje Luffy,
+			                    BindingResult result,
+			                     Model model,
+			                     SessionStatus Status) {
 		
 		if(result.hasErrors()) {
 			return "Formulario";
