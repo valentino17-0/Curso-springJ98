@@ -49,28 +49,34 @@ public class HomeController {
 	@GetMapping("/listar")
 	public String ListarPersonajes(Model model) {
 		
-		
 		model.addAttribute("TituloPagina", titlePage);
-		model.addAttribute("titulo", "Seccion J98");		
+		model.addAttribute("titulo", "Seccion J98");	
+		
 		Response<Personaje> rspta = InterfacePersonaje1.listarPersonaje();
 		
 		if (rspta.getEstado()) {
+			
 			model.addAttribute("Mensaje", rspta.getMensaje());
 			model.addAttribute("listita", rspta.getListData());
 			
-			return "lista";		
-		} else {
+			return "lista";
+			
+		}else {
 			model.addAttribute("mensaje", rspta.getMensaje());
 			model.addAttribute("mensajeError", rspta.getMensajeError());
 			return "errores";
 		}
-				
+		
+
+		
 	}
 		
 	
 	@GetMapping("/crear")
 	public String Formulario(Model model) {
 		Personaje personaje =  new Personaje();
+		
+		personaje.setNombres(personaje.toString());
 		
 		model.addAttribute("TituloPagina", titlePage);
 		model.addAttribute("titulo", "Sección J98 - Crear Personaje");		
@@ -79,16 +85,27 @@ public class HomeController {
 		return "Formulario";		
 	}
 	
-	@GetMapping("/Editar")
-	public String EditarPersonaje(@PathVariable int idPersonaje,  Model model) {
 	
+	@GetMapping("/Editar/{idPersonaje}")
+	public String EditarPersonaje(@PathVariable int idPersonaje, Model model) {
 		
+		model.addAttribute("TituloPagina", titlePage);
 		
-		return "Formulario";	
+		Response<Personaje> rspta = InterfacePersonaje1.editarPersonaje(idPersonaje);
+		model.addAttribute("titulo", "Sección J98 - Editando el personaje" +rspta.getData().getNombres());
+		model.addAttribute("personaje", rspta.getData());
+		
+		return "Formulario";
 	}
 	
-	
-	
+	@GetMapping("/Eliminar/{idPersonaje}")
+	public String EliminarPersonaje(@PathVariable int idPersonaje, Model model) {
+		
+		Response<Personaje> rspta = InterfacePersonaje1.eliminarPersonaje(idPersonaje);
+		
+		
+		return "redirect:/app/listar";
+	}
 	
 	
 	
@@ -102,10 +119,12 @@ public class HomeController {
 		Response<Personaje> rspta = InterfacePersonaje1.crearPersonaje(Luffy);
 		
 		if (rspta.getEstado()) {
-			return "redirect:/app/listar";
+			return "redirect:/app/listar"; //redireccione a la lista
+			
 		}else {
-		model.addAttribute("mensaje", rspta.getMensaje());	
-		return "errores";
+			model.addAttribute("mensaje", rspta.getMensaje());
+			model.addAttribute("mensajeError", rspta.getMensajeError());
+			return "errores";
 		
 		}
 	}

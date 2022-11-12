@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.certus.spring.models.Personaje;
 
 @Repository
-public interface PersonajeDAO extends CrudRepository<Personaje, Integer> {
+public interface IPersonajeDAO extends CrudRepository<Personaje, Integer> {
 	
 	
 
