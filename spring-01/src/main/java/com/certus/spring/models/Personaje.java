@@ -30,10 +30,10 @@ public class Personaje {
 	@NotEmpty(message = "Indicar la recompensa del personaje")
 	private String reconpensa;
 	
-	@NotEmpty(message = "Indicar el enlace de la imagen del personaje")
+	
 	private String uriImagen;
 	
-	
+		
 	
 	public int getIdPersonaje() {
 		return idPersonaje;
@@ -41,6 +41,7 @@ public class Personaje {
 	public void setIdPersonaje(int idPersonaje) {
 		this.idPersonaje = idPersonaje;
 	}
+	
 	public String getUriImagen() {
 		return uriImagen;
 	}

@@ -1,5 +1,9 @@
 package com.certus.spring.service;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,38 +12,35 @@ import org.springframework.stereotype.Component;
 
 import com.certus.spring.models.Personaje;
 import com.certus.spring.models.Response;
-import com.certus.spring.repository.IPersonajeDAO;
+import com.certus.spring.repository.PersonajeDAO;
 
 @Component("servicio1")
 public class PersonajeService implements IPersonajeService {
 	
 	@Autowired
-	IPersonajeDAO personajeRepository;
-	
+	PersonajeDAO personajeRepository;	
+
 	@Override
-	//enviando personaje
-	public Response<Personaje> crearPersonaje(Personaje p) {
-		
-		Response<Personaje> response = new Response<>();
-		
+	public Response<Personaje> crearPersonaje(Personaje p) {		
+		Response<Personaje> response = new Response<>();		
 		try {
-			Personaje personaje = personajeRepository.save(p);
-			response.setEstado(true);
 			
-			response.setMensaje("Personaje "+personaje.getNombres()+" creado Correctamente");
+			Personaje personaje = personajeRepository.save(p);			
+			response.setEstado(true);
+			response.setMensaje("El Personaje "+personaje.getNombres()+" ha sido creado correctamente");
 			
 		} catch (Exception e) {
 			response.setEstado(false);
-			response.setMensaje("Error al crear personaje "+p.getNombres()); //enviando el mensaje que se generó al guardar
+			response.setMensaje("Error al crear el personajes "+p.getNombres());
 			response.setMensajeError(e.getStackTrace().toString());
-		}
-		
+		}		
 		return response;
 	}
+
 	
 	@Override
-	public Response<Personaje>  editarPersonaje(Integer ID) {
-		
+	public Response<Personaje> editarPersonaje( Integer ID) {
+
 		Response<Personaje> response = new Response<>();
 		
 		try {
@@ -52,55 +53,61 @@ public class PersonajeService implements IPersonajeService {
 			response.setMensajeError(e.getStackTrace().toString());
 		}
 		
-		
 		return response;
 	}
-
-
-	@Override
-	public Response<Personaje> listarPersonaje() {
-		
-		Response<Personaje> response = new Response<>();	
-		
-		try {
-			response.setListData((List<Personaje>) personajeRepository.findAll());
-			response.setEstado(true);
-			response.setMensaje("Personajes obtenidos correctamente");
-			
-		} catch (Exception e) {
-			
-			response.setEstado(false);
-			response.setMensaje("Error al obtener personajes");
-			response.setMensajeError(e.getStackTrace().toString());
-		}
-		
-		
-		return response;
-	}
-
-
+	
+	
 	@Override
 	public Response<Personaje> eliminarPersonaje(Integer ID) {
 		
 		Response<Personaje> response = new Response<>();
 		
-		
 		try {
 			Optional<Personaje> p = personajeRepository.findById(ID);
 			
+			//Implementar validacion por alumnos - J98
+			
+			Path rutaEliminarFile = Paths.get("UploadsImg").resolve(p.get().getUriImagen());
+			File fileEliminar = rutaEliminarFile.toFile();
+			fileEliminar.delete();			
+			
 			personajeRepository.deleteById(ID);
 			response.setEstado(true);
-			response.setMensaje("El personaje "+p.get().getNombres()+ "ha sido eliminado");
-
+			response.setMensaje("El personaje "+p.get().getNombres()+" ha sido eliminado");
 			
 		} catch (Exception e) {
 			response.setEstado(false);
-			response.setMensaje("Error al eliminar personaje");
+			response.setMensaje("Error al eliminar el personaje");
 			response.setMensajeError(e.getStackTrace().toString());
 		}
-		
+				
 		return response;
 	}
+
+
+
+
+	@Override
+	public Response<Personaje> listarPersonaje() {
+		
+		Response<Personaje> response = new Response<>();
+		
+		try {
+			
+			response.setListData((List<Personaje>) personajeRepository.findAll());
+			response.setEstado(true);
+			response.setMensaje("Personajes obtenidos correctamente");
+			
+		} catch (Exception e) {			
+			response.setEstado(false);
+			response.setMensaje("Error al obtener los personajes");
+			response.setMensajeError(e.getStackTrace().toString());
+		}
+		return response;
+	}
+
+
+
 
 	
 

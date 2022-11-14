@@ -126,8 +126,8 @@ public class HomeController {
 		}
 		
 		if (!fileRecibido.isEmpty()) {			
-			Path rutaRelativaFile = Paths.get("src//main//resources//UploadsImg");
-			String rutaAbsoluta = rutaRelativaFile.toFile().getAbsolutePath();
+			
+			String rutaAbsoluta = "D:\\Temp\\UploadsImg";
 			
 			try {
 				byte [] bytesFile = fileRecibido.getBytes();
